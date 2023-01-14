@@ -1,0 +1,9 @@
+{
+    "app":{
+        "cfengine":"lucee"
+    },
+    "name":"cuid-v2-lucee",
+    "jvm":{
+        "args":"-Dlucee.preserve.case=true"
+    }
+}
