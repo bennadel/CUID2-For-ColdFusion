@@ -49,7 +49,7 @@ Eric Elliott uses the `SHA3-256` hashing algorithm in order to reduce the variou
 Under the hood, the `Cuid2.cfc` ColdFusion component generates random values using the `randRange()` built-in function with the `sha1prng` algorithm. With over 1,000,000 keys, we can see that this randomness is well distributed into buckets:
 
 <img
-	src="/bennadel/CUID2-For-ColdFusion/raw/master/public/histogram.png"
+	src="https://github.com/bennadel/CUID2-For-ColdFusion/raw/master/public/histogram.png"
 	width="100%"
 />
 
