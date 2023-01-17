@@ -176,14 +176,14 @@ component
 		// variable-length string.
 		var result = BigIntegerClass
 			.init( bytes )
-			.toString( 36 );
-		// NOTE: In the JavaScript version of CUID2, Eric Elliott removes the first
-		// two letters of the hash. His note says that the first two letters bias the
+			.toString( 36 )
+		;
+
+		// NOTE: In the JavaScript version of CUID2, Eric Elliott removes the first two
+		// letters of the hash. His note says that the first two letters bias the
 		// generated CUIDs towards a narrower set of values. Anecdotally, I do see the
 		// dash ("-") showing up a lot unless I remove the first 2 characters as well.
-		result = right(result, len(result)-2);
-
-		return( result );
+		return( result.right( result.len() - 2 ) );
 
 	}
 
