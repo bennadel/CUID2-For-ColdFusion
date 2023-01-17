@@ -20,6 +20,9 @@
 		<li>
 			<a href="./histogram.cfm">Histogram</a>
 		</li>
+		<li>
+			<a href="./inspect.cfm">Inpsect</a>
+		</li>
 	</ul>
 
 </body>
