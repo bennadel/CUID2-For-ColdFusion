@@ -4,7 +4,7 @@
 
 	length = 24;
 	cuid = new lib.Cuid2( length );
-	count = 100;
+	count = 100000;
 
 	// Inject all the proxy timing methods into the CUID instance.
 	timings = new Instrumenter().instrument( cuid );
