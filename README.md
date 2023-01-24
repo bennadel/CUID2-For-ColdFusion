@@ -3,6 +3,12 @@
 
 by [Ben Nadel][ben-nadel]
 
+## WARNING: Incomplete Implementation!
+
+I'm told that using `SHA-256` instead of `SHA3-256` (introduced in Java 9) is a disqualifying choice for the implementation due to the security properties of the earlier hashing algorithms. As such, please consider this implementation _incomplete_ and not production ready.
+
+----
+
 This is a **ColdFusion / CFML port** of the [Cuid2][cuid2] token generator created by [Eric Elliott][eric-elliott]. Cuid2 is an evolution of the [Cuid][cuid] library (for which I also have a [ColdFusion port][ben-nadel-cuid]) that is intended to address some security issues.
 
 Each Cuid token starts with a letter and is a consistent, configured length between 24 (default) and 34 characters.
