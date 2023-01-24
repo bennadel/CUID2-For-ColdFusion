@@ -4,7 +4,7 @@
 
 	length = 24;
 	cuid = new lib.Cuid2( length );
-	count = 1000000; 1000000;
+	count = 1000000;
 	tokens = [:];
 	buckets = [:];
 	BigIntegerClass = createObject( "java", "java.math.BigInteger" );
