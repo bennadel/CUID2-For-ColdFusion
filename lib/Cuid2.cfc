@@ -8,12 +8,16 @@ component
 	hint = "I provide secure, collision-resistant ids optimized for horizontal scaling and performance."
 	{
 
+	this.SHA3_256 = "sha3-256";
+	this.SHA_256 = "sha-256";
+
 	/**
 	* I initialize the CUID2 generator with the given (optional) parameters.
 	*/
 	public void function init(
 		numeric length,
-		string fingerprint
+		string fingerprint,
+		string algorithm
 		) {
 
 		variables.minCuidLength = 24;
@@ -42,11 +46,9 @@ component
 		variables.MessageDigestClass = createObject( "java", "java.security.MessageDigest" );
 
 		// Store and test arguments.
-		// --
-		// CAUTION: These assignments must come last because generating the fingerprint
-		// depends on other variables being defined.
 		variables.cuidLength = testCuidLength( arguments.length ?: minCuidLength );
 		variables.processFingerprint = testProcessFingerprint( arguments.fingerprint ?: generateFingerprint() );
+		variables.hashAlgorithm = testHashAlgorithm( arguments.algorithm ?: this.SHA3_256 );
 
 	}
 
@@ -74,7 +76,7 @@ component
 	// ---
 
 	/**
-	* I generate a seucre random binary value of the given length.
+	* I generate a secure random binary value of the given length.
 	*/
 	private array function generateBytes( required numeric length ) {
 
@@ -91,7 +93,7 @@ component
 
 
 	/**
-	* I generate the devince fingerprint for the CUID.
+	* I generate the device fingerprint for the CUID.
 	* 
 	* DIVERGENCE FROM CUID v1: In first version of CUID, the fingerprint generation was
 	* guaranteed to be 4-characters. However, in CUID v2, the fingerprint is nothing more
@@ -116,11 +118,11 @@ component
 	*/
 	private string function generateHashBlock() {
 
-		var inputs = MessageDigestClass.getInstance( "sha-256" );
+		var inputs = MessageDigestClass.getInstance( hashAlgorithm );
 
 		// These are all just sources of entropy to aide in collision prevention. None of
 		// the individual parts holds any particular magical meaning.
-		inputs.update( generateBytes( cuidLength * 2 ) );
+		inputs.update( generateBytes( maxCuidLength * 2 ) );
 		inputs.update( charsetDecode( getTickCount(), "utf-8" ) );
 		inputs.update( charsetDecode( counter.getAndIncrement(), "utf-8" ) );
 		inputs.update( charsetDecode( processFingerprint, "utf-8" ) );
@@ -178,6 +180,32 @@ component
 				type = "Cuid2.Length.Invalid",
 				message = "Cuid2 token length must be between [#minCuidLength#] and [#maxCuidLength#].",
 				detail = "Provided length: [#value#]."
+			);
+
+		}
+
+		return( value );
+
+	}
+
+
+	/**
+	* I test and return the given hash algorithm, throwing an error if the algorithm is
+	* not supported.
+	*/
+	private string function testHashAlgorithm( required string value ) {
+
+		value = value.lcase();
+
+		if (
+			( value != this.SHA3_256 ) &&
+			( value != this.SHA_256 )
+			) {
+
+			throw(
+				type = "Cuid2.Algorithm.NotSupported",
+				message = "Cuid2 hashing algorithm not supported.",
+				detail = "At this time, only the following hashing algorithms are supported: [#this.SHA3_256#, #this.SHA_256#]."
 			);
 
 		}

@@ -2,5 +2,8 @@
     "app":{
         "cfengine":"adobe@2021"
     },
-    "name":"cuid-v2-acf"
+    "name":"cuid-v2-acf",
+    "jvm":{
+        "javaVersion":"openjdk11"
+    }
 }

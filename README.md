@@ -3,12 +3,6 @@
 
 by [Ben Nadel][ben-nadel]
 
-## WARNING: Incomplete Implementation!
-
-I'm told that using `SHA-256` instead of `SHA3-256` (introduced in Java 9) is a disqualifying choice for the implementation due to the security properties of the earlier hashing algorithms. As such, please consider this implementation _incomplete_ and not production ready.
-
-----
-
 This is a **ColdFusion / CFML port** of the [Cuid2][cuid2] token generator created by [Eric Elliott][eric-elliott]. Cuid2 is an evolution of the [Cuid][cuid] library (for which I also have a [ColdFusion port][ben-nadel-cuid]) that is intended to address some security issues.
 
 Each Cuid token starts with a letter and is a consistent, configured length between 24 (default) and 34 characters.
@@ -38,17 +32,15 @@ token: lycfyvl0dlspi0us6smqkkr0
 token: x0hhypk7l7k4hga8newn4gnw
 ```
 
-The `Cuid2.cfc` ColdFusion component can be instantiated with two optional arguments:
+The `Cuid2.cfc` ColdFusion component can be instantiated with three optional arguments:
 
-`new Cuid2( [ length [, fingerprint ] ] )`
+`new Cuid2( [ length [, fingerprint [, algorithm ] ] ] )`
 
 * `length` - Numeric: The length of the generated token. Defaults to 24 but can be anything between 24 and 32.
 
 * `fingerprint` - String: The machine fingerprint. This is provided as an additional source of entropy. It defaults to the name of the JVM process as reported by the `ManagementFactory` Runtime MX Bean.
 
-## Known Issues
-
-Eric Elliott uses the `SHA3-256` hashing algorithm in order to reduce the various sources of entropy down into a single token. Unfortunately, the `SHA3` algorithms weren't available in Java until version 9. As such, I'm using the `SHA-256` hashing algorithm. I don't know what kind of impact this will have on the security; but, I believe the `SHA-256` algorithm to still be a commonly used and secure algorithm. I could always make this a configurable property of the ColdFusion component.
+* `algorithm` - String: The hash algorithm to be used when reducing the sources of entropy. It defaults to `SHA3-256` (which is the CUID2 standard); but, can also be set to `SHA-256` for older versions of Java (8) that don't support `SHA3` yet.
 
 ## Random Distribution
 

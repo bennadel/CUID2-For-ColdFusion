@@ -4,6 +4,7 @@
     },
     "name":"cuid-v2-lucee",
     "jvm":{
+        "javaVersion":"openjdk11",
         "args":"-Dlucee.preserve.case=true"
     }
 }
