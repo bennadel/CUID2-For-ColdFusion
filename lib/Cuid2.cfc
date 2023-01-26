@@ -1,5 +1,5 @@
 /**
-* This is a ColdFusion port of cuid2 by Eric Elliot.
+* This is a ColdFusion port of cuid2 by Eric Elliott.
 * --
 * Read more: https://github.com/paralleldrive/cuid2 
 */
